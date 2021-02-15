@@ -87,22 +87,42 @@ class FileCacheTest extends TestCase
         $cache = new FileCache([
             'root' => $root = __DIR__ . '/fixtures/file',
         ]);
+        $this->assertSame($root . '/test', $method->invoke($cache, 'test/'));
+
+        $cache = new FileCache([
+            'root' => $root = __DIR__ . '/fixtures/file',
+        ]);
+        $this->assertSame($root . '/test', $method->invoke($cache, '/test/'));
+
+        $cache = new FileCache([
+            'root' => $root = __DIR__ . '/fixtures/file',
+        ]);
         $this->assertSame($root . '/test', $method->invoke($cache, '../../test'));
 
         $cache = new FileCache([
             'root' => $root = __DIR__ . '/fixtures/file',
         ]);
-        $this->assertSame($root . '/hype-test', $method->invoke($cache, './hype-test'));
+        $this->assertSame($root . '/test.cache', $method->invoke($cache, '../test.cache'));
 
         $cache = new FileCache([
             'root' => $root = __DIR__ . '/fixtures/file',
         ]);
-        $this->assertSame($root . '/dash.test', $method->invoke($cache, './dash.test'));
+        $this->assertSame($root . '/test-page', $method->invoke($cache, './test-page'));
 
         $cache = new FileCache([
             'root' => $root = __DIR__ . '/fixtures/file',
         ]);
-        $this->assertSame($root . '/test', $method->invoke($cache, '../sub/test/'));
+        $this->assertSame($root . '/test.cache', $method->invoke($cache, './test.cache'));
+
+        $cache = new FileCache([
+            'root' => $root = __DIR__ . '/fixtures/file',
+        ]);
+        $this->assertSame($root . '/pages/test', $method->invoke($cache, '../pages/test/'));
+
+        $cache = new FileCache([
+            'root' => $root = __DIR__ . '/fixtures/file',
+        ]);
+        $this->assertSame($root . '/pages/test.cache', $method->invoke($cache, '../pages/test.cache'));
     }
 
     /**

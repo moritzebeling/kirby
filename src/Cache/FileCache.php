@@ -4,6 +4,7 @@ namespace Kirby\Cache;
 
 use Kirby\Toolkit\Dir;
 use Kirby\Toolkit\F;
+use Kirby\Toolkit\Str;
 
 /**
  * File System Cache Driver
@@ -68,7 +69,11 @@ class FileCache extends Cache
      */
     protected function file(string $key): string
     {
-        $file = $this->root . '/' . basename($key);
+        // clear relative path characters
+        $key = Str::trim($key, '/');
+        $key = Str::replace($key, ['../', './'], '');
+
+        $file = $this->root . '/' . $key;
 
         if (isset($this->options['extension'])) {
             return $file . '.' . $this->options['extension'];
