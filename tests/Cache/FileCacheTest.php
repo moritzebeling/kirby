@@ -123,6 +123,25 @@ class FileCacheTest extends TestCase
             'root' => $root = __DIR__ . '/fixtures/file',
         ]);
         $this->assertSame($root . '/pages/test.cache', $method->invoke($cache, '../pages/test.cache'));
+
+        $cache = new FileCache([
+            'root'      => $root = __DIR__ . '/fixtures/file',
+            'extension' => 'cache'
+        ]);
+        $this->assertSame($root . '/pages/test.cache', $method->invoke($cache, '../pages/test'));
+
+        $cache = new FileCache([
+            'root'   => $root = __DIR__ . '/fixtures/file',
+            'prefix' => 'prefix'
+        ]);
+        $this->assertSame($root . '/prefix/pages/test', $method->invoke($cache, '../pages/test'));
+
+        $cache = new FileCache([
+            'root'      => $root = __DIR__ . '/fixtures/file',
+            'prefix'    => 'prefix',
+            'extension' => 'cache'
+        ]);
+        $this->assertSame($root . '/prefix/pages/test.cache', $method->invoke($cache, '../pages/test'));
     }
 
     /**
